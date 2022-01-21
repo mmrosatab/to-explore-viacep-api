@@ -2,11 +2,12 @@
 
 Simple ReactJS application to explore viacep api
 
-You can use this application in:
+You can use this application in: https://to-explore-viacep-api.vercel.app/
 
-1.How to use this application locally?
+How to install the dependencies?
 
 > yarn install
-> yarn start
 
-2.
+How to use this application locally?
+
+> yarn start
