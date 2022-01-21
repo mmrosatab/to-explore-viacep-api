@@ -1,21 +1,33 @@
 import React, { useState } from "react";
-import { TextField, FormControl, Button, Box } from "@mui/material";
-import axios from "axios";
+import { TextField, FormControl, Button } from "@mui/material";
+import Fade from "@mui/material/Fade";
+import Backdrop from "@mui/material/Backdrop";
+import Modal from "@mui/material/Modal";
+import { Box } from "@mui/material";
+import Typography from "@mui/material/Typography";
+import CustomTable from "../Table";
+import api from "../../services/api";
 
 export default function ZipCode() {
   const [zipCode, setZipCode] = useState("");
   const [address, setAddress] = useState(null);
+  const [open, setOpen] = useState(false);
+
+  function handleClose() {
+    setOpen(false);
+    setAddress(null);
+  }
 
   async function handleSubmit(event) {
     event.preventDefault();
     try {
-      const request = await axios.get(
-        `https://viacep.com.br/ws/${zipCode}/json/`
-      );
+      const request = await api.get(`/${zipCode}/json/`);
       if (request) setAddress(request.data);
     } catch (error) {
-      console.log(error);
+      setAddress("CEP inválido");
     }
+
+    setOpen(true);
     setZipCode("");
   }
 
@@ -39,6 +51,53 @@ export default function ZipCode() {
           Procurar
         </Button>
       </FormControl>
+      {typeof address !== "string" && address !== null ? (
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <CustomTable address={address} />
+            </Box>
+          </Fade>
+        </Modal>
+      ) : (
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box sx={style}>
+              <Typography id="modal-modal-description">{address}</Typography>
+            </Box>
+          </Fade>
+        </Modal>
+      )}
     </>
   );
 }
+
+const style = {
+  position: "absolute",
+  top: "50%",
+  left: "50%",
+  transform: "translate(-50%, -50%)",
+  bgcolor: "background.paper",
+  boxShadow: 24,
+  p: 4,
+};
