@@ -6,9 +6,8 @@ import Modal from "@mui/material/Modal";
 import { Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CustomTable from "../Table";
-import api from "../../services/api";
 
-export default function ZipCode() {
+export default function ZipCode({ api }) {
   const [zipCode, setZipCode] = useState("");
   const [address, setAddress] = useState(null);
   const [open, setOpen] = useState(false);
@@ -35,7 +34,7 @@ export default function ZipCode() {
     <>
       <FormControl component="form" onSubmit={handleSubmit}>
         <TextField
-          id="outlined-basic"
+          id="cep-input"
           label="CEP"
           variant="outlined"
           value={zipCode}
@@ -47,6 +46,7 @@ export default function ZipCode() {
           color="secondary"
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
+          aria-label="btn-submit"
         >
           Procurar
         </Button>

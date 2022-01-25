@@ -2,6 +2,7 @@ import "normalize.css";
 import Container from "@mui/material/Container";
 import ZipCode from "./components/ZipCode";
 import Box from "@mui/material/Box";
+import api from "../src/services/api";
 
 function App() {
   return (
@@ -14,7 +15,7 @@ function App() {
           alignItems: "center",
         }}
       >
-        <ZipCode />
+        <ZipCode api={api} />
       </Box>
     </Container>
   );
