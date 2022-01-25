@@ -34,19 +34,21 @@ export default function ZipCode({ api }) {
     <>
       <FormControl component="form" onSubmit={handleSubmit}>
         <TextField
-          id="cep-input"
-          label="CEP"
+          id="zipcode-input"
+          name="zipcode"
+          label="digite o cep aqui..."
           variant="outlined"
           value={zipCode}
           onChange={(event) => setZipCode(event.target.value)}
+          aria-label="zipcode-input"
         />
         <Button
           type="submit"
-          id="btn-submit"
+          id="search-btn"
           color="secondary"
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
-          aria-label="btn-submit"
+          aria-label="search-btn"
         >
           Procurar
         </Button>

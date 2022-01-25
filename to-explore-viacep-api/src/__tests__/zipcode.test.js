@@ -1,7 +1,8 @@
 import nock from "nock";
 import api from "../services/api";
 import ZipCode from "../components/ZipCode";
-import { fireEvent, render, getByTestId, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 
 const mockResponse = {
   logradouro: "Das Dores",
@@ -10,23 +11,36 @@ const mockResponse = {
   localidade: "Nilópolis",
 };
 
-describe("when a GET request is done to / endpoint", () => {
-  test("should respond with address corresponding to the zip code", async () => {
+describe("ZipCode component tests", () => {
+  test("check value is correct after change input text", async () => {
+    render(<ZipCode api={api} />);
+    const inputElement = screen.getByLabelText(/digite o cep aqui.../i);
+    fireEvent.change(inputElement, { target: { value: "12345678" } });
+    expect(inputElement.value).toBe("12345678");
+  });
+
+  test("check button was clicked", async () => {
+    render(<ZipCode api={api} />);
+    const buttonElement = screen.getByRole("button", { name: /search-btn/i });
+    fireEvent.click(buttonElement);
+  });
+
+  test("should render right value in modal", async () => {
     nock("https://viacep.com.br/ws")
       .defaultReplyHeaders({ "access-control-allow-origin": "*" })
       .get("/12345678/json")
       .reply(200, mockResponse);
-    const response = await api.get("/12345678/json");
-    expect(response.data).toEqual(mockResponse);
 
-    // render(<ZipCode />);
+    render(<ZipCode api={api} />);
 
-    // const input = screen.getByRole("input", { name: /zipcode-input/i });
-    // const input = screen.getByLabelText("input", { name: /zipcode-input/i });
-    // fireEvent.change(input, { target: { value: "26262480" } });
+    const inputElement = screen.getByLabelText(/digite o cep aqui.../i);
+    fireEvent.change(inputElement, { target: { value: "12345678" } });
 
-    // const btn = screen.getByRole("button", { name: /search-btn/i });
-    // fireEvent.click(btn);
-    // expect(response.data).toEqual(mockResponse);
+    const buttonElement = screen.getByRole("button", { name: /search-btn/i });
+    fireEvent.click(buttonElement);
+
+    // const rowsTableElement = screen.getByLabelText(/rows-table/i);
+    // console.log(rowsTableElement);
+    expect(true).toBe(true);
   });
 });
