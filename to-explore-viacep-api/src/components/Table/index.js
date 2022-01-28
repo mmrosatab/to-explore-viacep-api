@@ -1,12 +1,15 @@
 import React from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell, { tableCellClasses } from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import { styled } from "@mui/material/styles";
+import {
+  styled,
+  Table,
+  TableBody,
+  TableContainer,
+  TableHead,
+  TableRow,
+  TableCell,
+  tableCellClasses,
+  Paper,
+} from "@mui/material";
 
 export default function CustomTable({ address }) {
   return (
@@ -21,7 +24,7 @@ export default function CustomTable({ address }) {
           </TableRow>
         </TableHead>
         <TableBody>
-          <StyledTableRow key={address.logradouro}>
+          <StyledTableRow data-testid="rows-table" key={address.logradouro}>
             <StyledTableCell align="center">
               {address.logradouro}
             </StyledTableCell>
