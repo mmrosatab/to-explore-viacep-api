@@ -3,7 +3,7 @@ import { FormControl, Box } from "@mui/material";
 import CustomButton from "../CustomButton";
 import Input from "../Input";
 
-function Form({ api, setAddress }) {
+function Form({ handleSubmit, setAddress }) {
   const [zipCode, setZipCode] = useState("");
 
   function zipCodeIsValid() {
@@ -14,7 +14,7 @@ function Form({ api, setAddress }) {
     setZipCode("");
   }
 
-  async function handleSubmit(event) {
+  async function onSubmit(event) {
     event.preventDefault();
 
     if (zipCodeIsValid()) {
@@ -22,15 +22,12 @@ function Form({ api, setAddress }) {
       return;
     }
 
-    try {
-      const request = await api.get(`/${zipCode}/json/`);
-      if (request.data.erro) {
-        setAddress("CEP inválido");
-      } else {
-        setAddress(request.data);
-      }
-    } catch (error) {
+    const request = await handleSubmit(zipCode);
+
+    if (request === null || request.data.erro) {
       setAddress("CEP inválido");
+    } else {
+      setAddress(request.data);
     }
 
     clearInput();
@@ -44,7 +41,7 @@ function Form({ api, setAddress }) {
         alignItems: "center",
       }}
     >
-      <FormControl component="form" onSubmit={handleSubmit}>
+      <FormControl component="form" onSubmit={onSubmit}>
         <Input
           id="zipcode-input"
           name="zipcode"
