@@ -1,68 +1,41 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
 import Form from "../components/Form";
+
+const mockResponse = {
+  logradouro: "Avenida Presidente Vargas",
+  bairro: "Centro",
+  localidade: "Rio de Janeiro",
+  uf: "RJ",
+};
 
 describe("Form component tests", () => {
   test("check value is correct after change input text", async () => {
     render(<Form />);
     const inputElement = screen.getByTestId("zipcode-input");
     expect(inputElement.value).toBe("");
-    fireEvent.change(inputElement, { target: { value: "12345678" } });
-    expect(inputElement.value).toBe("12345678");
+    fireEvent.change(inputElement, { target: { value: "20071003" } });
+    expect(inputElement.value).toBe("20071003");
   });
 
-  test("check button was clicked", async () => {
-    const utils = render(<Form />);
-    // const buttonElement = screen.getByTestId("search-btn");
-    // fireEvent.click(buttonElement);
-    console.log(utils);
+  test("check handleSubmit function is called with right value", async () => {
+    const handleSubmitMock = jest.fn();
+    handleSubmitMock.mockReturnValueOnce(mockResponse);
+    const setAddressMock = jest.fn();
+
+    render(
+      <Form handleSubmit={handleSubmitMock} setAddress={setAddressMock} />
+    );
+
+    const inputElement = screen.getByTestId("zipcode-input");
+    userEvent.type(inputElement, "20071003");
+
+    const buttonElement = screen.getByTestId("search-btn");
+    userEvent.click(buttonElement);
+
+    await waitFor(() =>
+      expect(handleSubmitMock).toHaveBeenCalledWith("20071003")
+    );
   });
 });
-
-// const mockResponse = {
-//   logradouro: "Das Dores",
-//   bairro: "União",
-//   uf: "RJ",
-//   localidade: "Nilópolis",
-// };
-
-// describe("ZipCode component tests", () => {
-//   test("check value is correct after change input text", async () => {
-//     render(<ZipCode api={api} />);
-//     const inputElement = screen.getByLabelText(/digite o cep aqui.../i);
-//     fireEvent.change(inputElement, { target: { value: "12345678" } });
-//     expect(inputElement.value).toBe("12345678");
-//   });
-
-//   test("check value is correct after change input text3", async () => {
-//     const { getByLabelText, getByTestId } = render(<ZipCode api={api} />);
-//     const inputElement = screen.getByTestId("zipcode-input");
-//     fireEvent.change(inputElement, { target: { value: "12345678" } });
-//     expect(inputElement.value).toBe("12345678");
-//   });
-
-//   test("check button was clicked", async () => {
-//     render(<ZipCode api={api} />);
-//     const buttonElement = screen.getByRole("button", { name: /search-btn/i });
-//     fireEvent.click(buttonElement);
-//   });
-
-//   test("should render right value in modal", async () => {
-//     nock("https://viacep.com.br/ws")
-//       .defaultReplyHeaders({ "access-control-allow-origin": "*" })
-//       .get("/12345678/json")
-//       .reply(200, mockResponse);
-
-//     render(<ZipCode api={api} />);
-
-//     const inputElement = screen.getByLabelText(/digite o cep aqui.../i);
-//     fireEvent.change(inputElement, { target: { value: "12345678" } });
-
-//     const buttonElement = screen.getByRole("button", { name: /search-btn/i });
-//     fireEvent.click(buttonElement);
-
-//     // const rowsTableElement = await screen.findByTestId("rows-table");
-//     // console.log(rowsTableElement);
-//     expect(true).toBe(true);
-//   });
-// });
