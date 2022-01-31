@@ -25,14 +25,18 @@ export default function CustomTable({ address }) {
         </TableHead>
         <TableBody>
           <StyledTableRow data-testid="rows-table" key={address.logradouro}>
-            <StyledTableCell align="center">
+            <StyledTableCell data-testid="logradouro" align="center">
               {address.logradouro}
             </StyledTableCell>
-            <StyledTableCell align="center">{address.bairro}</StyledTableCell>
-            <StyledTableCell align="center">
+            <StyledTableCell data-testid="bairro" align="center">
+              {address.bairro}
+            </StyledTableCell>
+            <StyledTableCell data-testid="localidade" align="center">
               {address.localidade}
             </StyledTableCell>
-            <StyledTableCell align="center">{address.uf}</StyledTableCell>
+            <StyledTableCell data-testid="uf" align="center">
+              {address.uf}
+            </StyledTableCell>
           </StyledTableRow>
         </TableBody>
       </Table>

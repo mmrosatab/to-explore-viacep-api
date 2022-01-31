@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import Input from "../components/Input";
 
@@ -10,6 +10,6 @@ describe("Input component tests", () => {
 
     render(<Input {...props} />);
     const inputElement = screen.getByTestId("zipcode-input");
-    expect(inputElement).toBeInTheDocument();
+    expect(inputElement).toBeVisible();
   });
 });

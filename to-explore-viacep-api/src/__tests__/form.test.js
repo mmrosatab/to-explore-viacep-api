@@ -2,13 +2,7 @@ import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import Form from "../components/Form";
-
-const mockResponse = {
-  logradouro: "Avenida Presidente Vargas",
-  bairro: "Centro",
-  localidade: "Rio de Janeiro",
-  uf: "RJ",
-};
+import mockAddress from "../__mock__/address";
 
 describe("Form component tests", () => {
   test("check value is correct after change input text", async () => {
@@ -21,7 +15,7 @@ describe("Form component tests", () => {
 
   test("check handleSubmit function is called with right value", async () => {
     const handleSubmitMock = jest.fn();
-    handleSubmitMock.mockReturnValueOnce(mockResponse);
+    handleSubmitMock.mockReturnValueOnce(mockAddress);
     const setAddressMock = jest.fn();
 
     render(

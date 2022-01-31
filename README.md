@@ -11,3 +11,7 @@ How to install the dependencies?
 How to use this application locally?
 
 > yarn start
+
+How to run all tests?
+
+> yarn test
