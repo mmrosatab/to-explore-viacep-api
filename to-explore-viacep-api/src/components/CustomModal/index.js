@@ -16,6 +16,13 @@ function CustomModal({
     setAddress(null);
   }
 
+  function DisplayData() {
+    if (typeof address !== "string") {
+      return <CustomTable address={address} />;
+    }
+    return <Typography id="invalid-cep">{address}</Typography>;
+  }
+
   return (
     <Modal
       aria-labelledby={ariaLabelledby}
@@ -30,13 +37,7 @@ function CustomModal({
       data-testid={dataTestId}
     >
       <Fade in={open}>
-        <Box sx={style}>
-          {typeof address !== "string" ? (
-            <CustomTable address={address} />
-          ) : (
-            <Typography id="invalid-cep">{address}</Typography>
-          )}
-        </Box>
+        <Box sx={style}>{<DisplayData />}</Box>
       </Fade>
     </Modal>
   );

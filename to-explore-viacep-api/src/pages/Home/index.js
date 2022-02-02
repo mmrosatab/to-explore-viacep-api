@@ -16,14 +16,9 @@ function Home() {
     }
   }
 
-  return (
-    <Container>
-      <Form
-        dataTestId="zipcode-form"
-        handleSubmit={handleSubmit}
-        setAddress={setAddress}
-      />
-      {address !== null ? (
+  function DisplayData() {
+    if (address !== null) {
+      return (
         <CustomModal
           ariaLabelledby="transition-modal-title"
           ariaDescribedby="transition-modal-description"
@@ -31,9 +26,19 @@ function Home() {
           setAddress={setAddress}
           dataTestId="modal-zipcode"
         />
-      ) : (
-        <React.Fragment />
-      )}
+      );
+    }
+    return <React.Fragment />;
+  }
+
+  return (
+    <Container>
+      <Form
+        dataTestId="zipcode-form"
+        handleSubmit={handleSubmit}
+        setAddress={setAddress}
+      />
+      {<DisplayData />}
     </Container>
   );
 }
