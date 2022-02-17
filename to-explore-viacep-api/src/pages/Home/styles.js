@@ -8,4 +8,8 @@ const Container = styled.div`
   align-items: center;
 `;
 
-export default Container;
+const Title = styled.div`
+  padding: 2%;
+`;
+
+export { Container, Title };

@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Container from "./styles";
+import { Container, Title } from "./styles";
 import Form from "../../components/Form";
 import CustomModal from "../../components/CustomModal";
 import api from "../../services/api";
+import { Typography } from "@mui/material";
 
 function Home() {
   const [address, setAddress] = useState(null);
@@ -33,6 +34,11 @@ function Home() {
 
   return (
     <Container>
+      <Title>
+        <Typography variant="h3" component="h2">
+          Buscar o CEP
+        </Typography>
+      </Title>
       <Form
         dataTestId="zipcode-form"
         handleSubmit={handleSubmit}
