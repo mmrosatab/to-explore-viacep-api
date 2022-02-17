@@ -1,4 +1,5 @@
 import { TextField } from "@mui/material";
+import InputMask from "react-input-mask";
 
 function Input({
   id,
@@ -11,6 +12,11 @@ function Input({
   handleInput,
 }) {
   return (
+    // <InputMask mask="99999-999" value={value} disabled={false} maskChar="-">
+    //   {() => (
+
+    //   )}
+    // </InputMask>
     <TextField
       id={id}
       name={name}

@@ -6,8 +6,8 @@ import Input from "../Input";
 function Form({ handleSubmit, setAddress }) {
   const [zipCode, setZipCode] = useState("");
 
-  function zipCodeIsNotValid() {
-    return zipCode.length !== 8 || isNaN(zipCode);
+  function zipCodeIsNotValid(value) {
+    return value.length !== 8 || isNaN(value);
   }
 
   function clearInput() {
@@ -17,13 +17,15 @@ function Form({ handleSubmit, setAddress }) {
   async function onSubmit(event) {
     event.preventDefault();
 
-    if (zipCodeIsNotValid()) {
+    let value = onlyNumber();
+
+    if (zipCodeIsNotValid(value)) {
       clearInput();
-      setAddress("CEP inválido");
+      setAddress("CEP inválido ou campo vazio");
       return;
     }
 
-    const request = await handleSubmit(zipCode);
+    const request = await handleSubmit(value);
 
     if (request === null || request.data?.erro) {
       setAddress("CEP inválido");
@@ -32,6 +34,10 @@ function Form({ handleSubmit, setAddress }) {
     }
 
     clearInput();
+  }
+
+  function onlyNumber() {
+    return zipCode.replace("-", "");
   }
 
   return (

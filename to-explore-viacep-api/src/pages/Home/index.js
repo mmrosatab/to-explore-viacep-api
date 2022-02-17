@@ -1,7 +1,8 @@
 import React, { useState } from "react";
-import { Container, Title } from "./styles";
+import { Container, Title, Main, Footer } from "./styles";
 import Form from "../../components/Form";
 import CustomModal from "../../components/CustomModal";
+import Wave from "../../components/Wave";
 import api from "../../services/api";
 import { Typography } from "@mui/material";
 
@@ -34,17 +35,23 @@ function Home() {
 
   return (
     <Container>
-      <Title>
-        <Typography variant="h3" component="h2">
-          Buscar CEP
-        </Typography>
-      </Title>
-      <Form
-        dataTestId="zipcode-form"
-        handleSubmit={handleSubmit}
-        setAddress={setAddress}
-      />
-      {<DisplayData />}
+      <Main>
+        <Title>
+          <Typography variant="h3" component="h2">
+            Buscar CEP
+          </Typography>
+        </Title>
+        <Form
+          dataTestId="zipcode-form"
+          handleSubmit={handleSubmit}
+          setAddress={setAddress}
+        />
+        {<DisplayData />}
+      </Main>
+
+      <Footer>
+        <Wave RGBcolor={"#9C27B0"} />
+      </Footer>
     </Container>
   );
 }
