@@ -16,8 +16,6 @@ You can use this application in: https://to-explore-viacep-api.vercel.app/
 
 > yarn test
 
-### Image
-
 ![alt text](cep_app.png?raw=true)
 
 ### Todo List
