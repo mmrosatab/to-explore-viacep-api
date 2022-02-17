@@ -36,7 +36,7 @@ function Home() {
     <Container>
       <Title>
         <Typography variant="h3" component="h2">
-          Buscar o CEP
+          Buscar CEP
         </Typography>
       </Title>
       <Form
